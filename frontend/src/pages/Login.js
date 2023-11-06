@@ -37,7 +37,8 @@ const Login = () => {
       const data = {
         id: response.data.id
       };
-      
+
+      // TODO: Implement better session management for assignment 3
       localStorage.setItem('user', JSON.stringify(data));
       navigate('/landing');
       showSuccessToast('User logged in successfully!');

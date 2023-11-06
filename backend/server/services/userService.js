@@ -11,6 +11,7 @@ const verifyPassword = async (userId, givenPassword) => {
 const loginUser = async (email, password) => {
   try {
     let userId = Number();
+    // var isAdmin = Boolean();
 
     // Check for missing inputs
     if (!email || !password) {

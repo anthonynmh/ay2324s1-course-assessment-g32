@@ -39,6 +39,27 @@ const UserList = () => {
   };
 
   useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await getAllUsers();
+        setTableData(response);
+        setFetchUsers(false);
+        setIsLoading(false);
+      } catch (error) {
+        navigate(-1);
+        switch (error.response.status) {
+          case 400:
+            showValidationErrorToast(error);
+            break;
+          case 500:
+            showServerErrorToast(error);
+            break;
+          default:
+            showFailureToast(error);
+        }
+      }
+    };
+
     if (storedUser) {
       fetchData();
     } else {
@@ -72,7 +93,7 @@ const UserList = () => {
   const handleDeleteClick = async (id) => {
     try {
       await deleteUser(id);
-      fetchData();
+      setFetchUsers(true);
       showSuccessToast('User has been deleted successfully!');
     } catch (error) {
       switch (error.response.status) {
